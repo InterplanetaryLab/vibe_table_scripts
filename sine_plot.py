@@ -21,14 +21,14 @@ class vibe_data_sine(vibe_data_random):
             ylims= [0, 10]
             if (channel == -1):
                 xlabel = "Frequency (Hz) \n"
-                df.plot(x=0, y=[1,2], ax=ax,logy=True, logx=True,title= ("ASD: %s: file: %d - Channel 1 & 2"%(self.base_name, file)), xlabel=xlabel, ylabel="ASD (g^2/Hz)", ylim=ylims, figsize=(8,8))
+                df.plot(x=0, y=[1,2], ax=ax,logy=True, logx=True,title= ("ASD: %s: file: %d - Channel 1 & 2"%(self.base_name, file)), xlabel=xlabel, ylabel="ASD (g)", ylim=ylims, figsize=(8,8))
                 #plt.text('test', 1))
             elif (channel == 1):
                 xlabel = "Frequency (Hz) \n"
-                df.plot(x=0, y=2, logy=True, logx=True, ax=ax,title= ("ASD: %s: file: %d - Channel 1"%(self.base_name, file)), xlabel=xlabel, ylabel="ASD (g^2/Hz)", ylim=ylims, figsize=(8,8))
+                df.plot(x=0, y=2, logy=True, logx=True, ax=ax,title= ("ASD: %s: file: %d - Channel 1"%(self.base_name, file)), xlabel=xlabel, ylabel="ASD (g)", ylim=ylims, figsize=(8,8))
             elif (channel == 2):
                 xlabel = "Frequency (Hz) \n"
-                df.plot(x=0, y=2, logy=True, logx=True, ax=ax,title= ("ASD: %s: file: %d - Channel 2"%(self.base_name, file)), xlabel=xlabel, ylabel="ASD (g^2/Hz)", ylim=ylims, figsize=(8,8))
+                df.plot(x=0, y=2, logy=True, logx=True, ax=ax,title= ("ASD: %s: file: %d - Channel 2"%(self.base_name, file)), xlabel=xlabel, ylabel="ASD (g)", ylim=ylims, figsize=(8,8))
             plt.show()
 
 
