@@ -2,10 +2,16 @@ import pandas
 import matplotlib.pyplot as plt
 import matplotlib.figure as figure
 import os
+from test_report import test_report
 
 # flags section
 
-class vibe_data_random:
+# assumes the following structure:
+# root
+# /data
+# /images
+
+class vibe_data_random(test_report):
     def __init__(self):
         self.filenames = []
         self.test_time = 0
@@ -13,21 +19,23 @@ class vibe_data_random:
         self.base_name = ""
         self.truth_x = [20,153,190,250,750,2000]
         self.truth_y = [.057,.057,.099,.099,.055,.18]
+        super().__init__()
     def grab_filenames(self, base_name):
         self.base_name = base_name
         if (self.base_path != ""):
-            for file in os.listdir(self.base_path):
+            base_path = self.base_path+"/data"
+            for file in os.listdir(base_path):
                 if ("." in file):
                     print("ignoring telem file")
                 else:
-                    self.filenames.append(self.base_path+"/"+file)
-                print(os.path.join(self.base_path,file))
+                    self.filenames.append(base_path+"/"+file)
+                print(os.path.join(base_path,file))
             self.filenames.sort()
             for f in self.filenames:
                 print(f)
         else:
             return -1 
-    def plot_data(self, file=-1, channel = -1): # set file to anything above -1 to plot a specific element
+    def plot_data(self, file=-1, channel = -1, output_name = ""): # set file to anything above -1 to plot a specific element
         if (file== -1): # plt all files
             print("plotting all files")
         else:
@@ -52,12 +60,28 @@ class vibe_data_random:
             elif (channel == 2):
                 xlabel = "Frequency (Hz) \n CH2: %f grms" %(ch2_g_rms)
                 df.plot(x=4, y=2, logy=True, ax=ax,title= ("PSD: %s: file: %d - Channel 2"%(self.base_name, file)), xlabel=xlabel, ylabel="PSD (g^2/Hz)", ylim=ylims, figsize=(8,8), yticks=yticks)
-            ax.plot(self.truth_x,self.truth_y)
-            plt.show()
-
+            if (output_name == ""):
+                plt.savefig(self.filenames[file]+".png")
+            else:
+                plt.savefig(output_name)
+    def create_results(self):
+        self.add_h2("Vibration Profile Stimulus: ")
+        self.add_h2("Before Vibration Pictures: ")
+        self.add_h2("Vibration Data Results: ")
+        self.plot_data(file=0,channel=2, output_name = self.base_path+"/images/data.png")
+        self.add_image("./images/data.png")
+        self.add_h2("After Vibration Pictures: ")
 
 if __name__ == "__main__":
     random_data = vibe_data_random()
     random_data.base_path = "/home/rommac/Downloads/Rand_CF1_X"
+    random_data.title = "Battery CF1 X Axis Vibration Test"
     random_data.grab_filenames("Rand_CF1_X")
-    random_data.plot_data(file=0,channel=2)
+    random_data.test_date = "08-12-2022"
+    random_data.analysis_date ="08-12-2022"
+    random_data.output_dir = random_data.base_path
+    random_data.test_type = "random vibe test"
+    random_data.test_description_paragraph = "Battery Test CF1_X Results"
+    random_data.test_description_short = "Battery Test CF1_X Results"
+    random_data.write_html_report()
+
