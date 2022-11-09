@@ -1,6 +1,7 @@
 # Test Report Python Class
 # Creates HTML files with Basic Test Reports
 import datetime
+import os
 
 class test_report:
     def __init__(self):
@@ -102,6 +103,20 @@ class test_report:
         return header
     def add_image(self,image_path, sizew=1065, sizeh=763):
         self.running_html += """\n <img src=%s alt="image missing" width="%s" height="%s"> """%(image_path,sizew,sizeh)
+    def add_images(self, image_filename_partial, sizew=1065, sizeh=763): # adds_images based upon partial match to filename
+        filenames_arr = []
+        if (self.base_path != ""):
+            base_path = self.base_path+"/images"
+            for file in os.listdir(base_path):
+                if (image_filename_partial in file):
+                    filenames_arr.append("./images/"+file)
+            filenames_arr.sort()
+            for i in range(len(filenames_arr)):
+                self.add_h2(image_filename_partial+" %d"%(i+1))
+                self.add_image(filenames_arr[i], sizew, sizeh)
+        else:
+            return -1
+
     def add_p(self, text):
         self.running_html += """\n <p>%s</p>"""%text
     def add_h2(self, text):

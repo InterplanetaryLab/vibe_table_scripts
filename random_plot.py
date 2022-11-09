@@ -66,11 +66,15 @@ class vibe_data_random(test_report):
                 plt.savefig(output_name)
     def create_results(self):
         self.add_h2("Vibration Profile Stimulus: ")
+        self.add_image("./images/Capture.PNG")
         self.add_h2("Before Vibration Pictures: ")
+        self.add_images("before", sizew=1065, sizeh=763) # adds_images based upon partial match to filename
         self.add_h2("Vibration Data Results: ")
+        self.grab_filenames(self.base_name)
         self.plot_data(file=0,channel=2, output_name = self.base_path+"/images/data.png")
         self.add_image("./images/data.png")
         self.add_h2("After Vibration Pictures: ")
+        self.add_images("post",sizew=1065,sizeh=763)
 
 if __name__ == "__main__":
     random_data = vibe_data_random()
