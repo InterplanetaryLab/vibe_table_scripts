@@ -4,15 +4,24 @@ import datetime
 
 class test_report:
     def __init__(self):
-        self.title = "Base Report"
-        self.test_date = ""
-        self.analysis_date =""
         self.running_html = ""
         self.output_dir = ""
         self.report_creation_date = ""
+
+        # Header Elements
+        self.title = "Base Report"
+        self.report_creation_date = ""
+        self.test_date = ""
+        self.analysis_date =""
         self.test_type = "base_test"
         self.test_description_paragraph = ""
         self.test_description_short = ""
+        self.project_name = ""
+        self.test_purpose = ""
+        self.test_outcome = ""
+        self.object_under_test = ""
+        self.customer = ""
+        self.lab_operator = ""
     def create_header(self):
         header = """
         <style>
@@ -44,6 +53,30 @@ class test_report:
                 <th>%s</th>
             </tr>
             <tr>
+                <th>Project Name: </th>
+                <th>%s</th
+            </tr>
+            <tr>
+                <th>Test Purpose: </th>
+                <th>%s</th
+            </tr>
+            <tr>
+                <th>Test Outcome: </th>
+                <th>%s</th
+            </tr>
+            <tr>
+                <th>Object Under Test: </th>
+                <th>%s</th
+            </tr>
+            <tr>
+                <th>Customer</th>
+                <th>%s</th
+            </tr>
+            <tr>
+                <th>Lab Operator</th>
+                <th>%s</th
+            </tr>
+            <tr>
                 <th>Test Date:</th>
                 <th>%s</th>
             </tr>
@@ -65,7 +98,7 @@ class test_report:
         <h2 style="color:white">Test Description Paragraph: </h2>
         <p style="color:white">%s</p>
         </header>
-        """%(self.output_dir+"/logo.png",self.test_type,self.test_date, self.analysis_date, self.output_dir, self.report_creation_date, self.test_description_short, self.test_description_paragraph)
+        """%(self.output_dir+"/logo.png",self.test_type,self.project_name, self.test_purpose, self.test_outcome, self.object_under_test, self.customer, self.lab_operator, self.test_date, self.analysis_date, self.output_dir, self.report_creation_date, self.test_description_short, self.test_description_paragraph)
         return header
     def add_image(self,image_path, sizew=1065, sizeh=763):
         self.running_html += """\n <img src=%s alt="image missing" width="%s" height="%s"> """%(image_path,sizew,sizeh)
